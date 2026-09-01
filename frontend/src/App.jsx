@@ -140,6 +140,7 @@ const RULE_DETAILS = {
     requirement: 'Rule 3(c/d): Exemptions for fast food packed by hotels or drug formulations under DPCO.',
   },
 };
+
 function Badge({ status }) {
   return (
     <span
@@ -1064,12 +1065,21 @@ setActivePage('inspect')
                     />
 
                     <Metric
-                      label="Possible issues"
+                      label="Issues"
                       value={
                         report.counts
                           .POSSIBLE_VIOLATION
                       }
                       type="fail"
+                    />
+
+                    <Metric
+                      label="Exempt"
+                      value={
+                        report.counts
+                          .EXEMPT
+                      }
+                      type="exempt"
                     />
 
                     <Metric
@@ -1095,6 +1105,10 @@ setActivePage('inspect')
                       [
                         'NEEDS_REVIEW',
                         'Review',
+                      ],
+                      [
+                        'EXEMPT',
+                        'Exemptions',
                       ],
                       [
                         'PASS',
@@ -1158,6 +1172,8 @@ setActivePage('inspect')
                               'object'
                                 ? JSON.stringify(
                                     finding.observed,
+                                    null,
+                                    2,
                                   )
                                 : finding.observed}
                             </code>
@@ -1659,12 +1675,20 @@ setActivePage('inspect')
               />
 
               <Metric
-                label="Possible issues"
+                label="Issues"
                 value={
                   report.counts
                     ?.POSSIBLE_VIOLATION
                 }
                 type="fail"
+              />
+
+              <Metric
+                label="Exempt"
+                value={
+                  report.counts?.EXEMPT
+                }
+                type="exempt"
               />
 
               <Metric
@@ -1718,6 +1742,8 @@ setActivePage('inspect')
                         'object'
                           ? JSON.stringify(
                               finding.observed,
+                              null,
+                              2,
                             )
                           : finding.observed}
                       </code>
@@ -1737,10 +1763,10 @@ setActivePage('inspect')
               05 / Evidence
             </p>
 
-            {preview ? (
+            {report.annotated_image_url || preview ? (
               <div className="dossier-image">
                 <img
-                  src={preview}
+                  src={report.annotated_image_url ? `${API_URL}${report.annotated_image_url}` : preview}
                   alt="Inspected package label"
                 />
               </div>
