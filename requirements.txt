@@ -1,4 +1,8 @@
 google-genai>=1.0.0
-fastapi>=0.115.0
-uvicorn[standard]>=0.30.0
+fastapi[all]>=0.110.0
+uvicorn[standard]>=0.28.0
+Pillow>=10.2.0
 python-multipart>=0.0.9
+streamlit>=1.32.0
+pandas>=2.2.0
+requests>=2.31.0
