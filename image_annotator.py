@@ -1,9 +1,10 @@
 from pathlib import Path
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageOps
 
 def draw_evidence(image_path: str | Path, extraction: dict, output_path: str | Path) -> str:
     """Draws normalized bounding boxes from Gemini onto the image."""
     with Image.open(image_path) as img:
+        img = ImageOps.exif_transpose(img)
         img = img.convert("RGBA")
         draw = ImageDraw.Draw(img)
         width, height = img.size
