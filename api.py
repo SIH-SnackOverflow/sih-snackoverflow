@@ -91,3 +91,9 @@ async def create_review(image: UploadFile = File(...)) -> dict[str, Any]:
         if temporary_path:
             temporary_path.unlink(missing_ok=True)
         await image.close()
+# --- STARTUP BLOCK ---
+# This part is crucial! It tells Python to actually start the server.
+if __name__ == "__main__":
+    import uvicorn
+    print("Starting LabelLens API server...")
+    uvicorn.run(app, host="127.0.0.1", port=8000)
